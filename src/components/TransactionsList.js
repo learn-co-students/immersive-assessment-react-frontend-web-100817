@@ -1,7 +1,18 @@
 import React from 'react'
+import Transaction from './Transaction'
 
-const TransactionsList = () => {
-
+const TransactionsList = (props) => {
+  // debugger;
+  // console.log(props)
+  function onTrans() {
+    console.log(props.transactions)
+    return props.transactions.map((tran, i) => {
+      // console.log(tran);
+      return (
+        <Transaction key={i} transaction={tran} />
+      )
+    })
+  }
   return (
     <table className="ui celled striped padded table">
       <tbody>
@@ -27,8 +38,7 @@ const TransactionsList = () => {
             </h3>
           </th>
         </tr>
-
-        {"... your code here..."}
+        {onTrans()}
 
       </tbody>
     </table>
