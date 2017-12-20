@@ -16,7 +16,8 @@ const transactions = [
   {
     id: 3,
     posted_at: "2017-05-24 10:53:00",
-    description: "'Pair Programming Illuminated' by Laurie Williams and Robert Kessler",
+    description:
+      "'Pair Programming Illuminated' by Laurie Williams and Robert Kessler",
     category: "Book",
     amount: 1498
   },
@@ -27,6 +28,6 @@ const transactions = [
     category: "Coffee",
     amount: 365
   }
-]
+];
 
-export {transactions}
+export default transactions;
