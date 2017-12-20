@@ -1,4 +1,5 @@
 import React from "react";
+import Transaction from "./Transaction";
 
 const TransactionsList = props => {
   const { transactions } = props;
@@ -7,22 +8,7 @@ const TransactionsList = props => {
       transaction.description.toLowerCase().includes(props.searchTerm) ||
       transaction.category.toLowerCase().includes(props.searchTerm)
     ) {
-      return (
-        <tr>
-          <th>
-            <p>{transaction.posted_at}</p>
-          </th>
-          <th>
-            <p>{transaction.description}</p>
-          </th>
-          <th>
-            <p>{transaction.category}</p>
-          </th>
-          <th>
-            <p>{transaction.amount}</p>
-          </th>
-        </tr>
-      );
+      return <Transaction transaction={transaction} />;
     }
   });
   return (
@@ -42,7 +28,6 @@ const TransactionsList = props => {
             <h3 className="ui center aligned header">Amount</h3>
           </th>
         </tr>
-
         {transactionSearched}
       </tbody>
     </table>
