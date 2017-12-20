@@ -2,12 +2,13 @@ import React from 'react'
 
 
 const Transaction = (transaction) => {
+  console.log(transaction.transaction.description)
   return (
     <tr>
-      <td>{transaction.posted_at}</td>
-      <td>{transaction.description}</td>
-      <td>{transaction.category}</td>
-      <td>{transaction.amount}</td>
+      <td>{transaction.transaction.posted_at}</td>
+      <td>{transaction.transaction.description}</td>
+      <td>{transaction.transaction.category}</td>
+      <td>{transaction.transaction.amount}</td>
     </tr>
   )
 }

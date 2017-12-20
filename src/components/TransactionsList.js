@@ -2,10 +2,14 @@ import React from 'react'
 import Transaction from './Transaction'
 
 const TransactionsList = (props) => {
+  // debugger;
+  // console.log(props)
   function onTrans() {
-    return this.props.transactions.map(tran => {
+    console.log(props.transactions)
+    return props.transactions.map((tran, i) => {
+      // console.log(tran);
       return (
-        <Transaction transaction={tran} />
+        <Transaction key={i} transaction={tran} />
       )
     })
   }
@@ -34,7 +38,7 @@ const TransactionsList = (props) => {
             </h3>
           </th>
         </tr>
-        {onTrans}
+        {onTrans()}
 
       </tbody>
     </table>
