@@ -1,29 +1,61 @@
 import React, { Component } from 'react'
 import TransactionsList from './TransactionsList'
 import Search from './Search'
-import {transactions} from '../transactionsData'
 
 class AccountContainer extends Component {
 
   constructor() {
     super()
 
-    // get a default state working with the data imported from TransactionsData
-    // use this to get the functionality working
-    // then replace the default transactions with a call to the API
-
+    this.state = {
+      transactions: [],
+      searchTerm: "",
+      orderTerm: null
+    }
   }
 
-  handleChange(event) {
-    // your code here
+  //uses a lifecycle method to fetch data from our api
+  componentWillMount() {
+    fetch("https://boiling-brook-94902.herokuapp.com/transactions")
+      .then(res => res.json())
+      .then(json => this.setState({
+        transactions: json
+      }))
+  }
+
+  //handles the sorting if a header is clicked, then sets the state to newly sorted
+  //to pass down into our list
+  handleClick = (id) => {
+    let copy = this.state.transactions.slice()
+    copy.sort((a, b) => {
+        if(a[id] < b[id]){
+            return -1;
+        }else if(a[id] > b[id]){
+            return 1;
+        }
+        return 0;
+    })
+    this.setState({transactions: copy})
+  }
+
+  //sets our state everytime a letter is added or removed from search bar
+  handleChange = (value) => {
+    this.setState({searchTerm: value})
   }
 
   render() {
-
+    console.log(this.state)
     return (
       <div>
-        <Search searchTerm={"...add code here..."} handleChange={"...add code here..."} />
-        <TransactionsList transactions={"...add code here..."} searchTerm={"...add code here..."} />
+        <Search
+          searchTerm={this.state.searchTerm}
+          handleChange={this.handleChange}
+        />
+        <TransactionsList
+          transactions={this.state.transactions}
+          searchTerm={this.state.searchTerm}
+          handleClick={this.handleClick}
+        />
       </div>
     )
   }
