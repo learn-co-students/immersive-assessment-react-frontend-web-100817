@@ -48,10 +48,7 @@ class AccountContainer extends Component {
           searchTerm={this.state.searchTerm}
           handleChange={this.handleChange}
         />
-        <TransactionsList
-          transactions={this.state.filteredTransactions}
-          searchTerm={this.state.searchTerm}
-        />
+        <TransactionsList transactions={this.state.filteredTransactions} />
       </div>
     );
   }
