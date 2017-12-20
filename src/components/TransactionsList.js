@@ -1,6 +1,26 @@
 import React from 'react'
 
-const TransactionsList = () => {
+const TransactionsList = ({transactions, searchTerm}) => {
+
+  const transactionsShow = transactions.map(transaction => {
+    return <tr>
+    <th>{transaction.posted_at}</th>
+    <th>{transaction.description}</th>
+    <th>{transaction.category}</th>
+    <th>{transaction.amount}</th>
+    </tr>
+  })
+
+  const filteredShow = transactions.filter(transaction => {
+    return transaction.description.toUpperCase().includes(searchTerm.toUpperCase()) || transaction.category.toUpperCase().includes(searchTerm.toUpperCase())
+  }).map(transaction => {
+    return <tr>
+    <th>{transaction.posted_at}</th>
+    <th>{transaction.description}</th>
+    <th>{transaction.category}</th>
+    <th>{transaction.amount}</th>
+    </tr>
+  })
 
   return (
     <table className="ui celled striped padded table">
@@ -28,7 +48,7 @@ const TransactionsList = () => {
           </th>
         </tr>
 
-        {"... your code here..."}
+        {searchTerm === '' ? transactionsShow : filteredShow}
 
       </tbody>
     </table>
