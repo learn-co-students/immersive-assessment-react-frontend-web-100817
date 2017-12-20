@@ -21,15 +21,15 @@ class AccountContainer extends Component {
   fetchTransaction = () => {
     fetch('https://boiling-brook-94902.herokuapp.com/transactions').then(response=>response.json()).then(transactions => this.setState({transactions}))
   }
-  handleChange(event) {
+  handleChange = (event) => {
     event.preventDefault()
-    this.setState({searchTerm: event.target.value})
+    this.setState({searchTerm: event.target.value}, this.filterTransactions)
   }
 
   filterTransactions = () => {
-      let transactions = this.state.transactions.filter(transaction => {
-      transaction.description.includes(this.state.searchTerm)
-    })
+      let transactions = this.state.transactions.filter(transaction =>
+      transaction.description.includes(event.target.value)
+    )
 
     this.setState({transactions: transactions})
   }
