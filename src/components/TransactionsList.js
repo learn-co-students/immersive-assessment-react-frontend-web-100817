@@ -1,7 +1,19 @@
 import React from 'react'
 
-const TransactionsList = () => {
+const TransactionsList = props => {
+  console.log('this is my props', props)
+  const transaction = props.transactions.map( t => {
+    return (
+      <tr>
+        <th>{t.posted_at}</th>
+        <th>{t.description}</th>
+        <th>{t.category}</th>
+        <th>{t.amount}</th>        
+      </tr>
+    )
+  })
 
+  
   return (
     <table className="ui celled striped padded table">
       <tbody>
@@ -27,8 +39,7 @@ const TransactionsList = () => {
             </h3>
           </th>
         </tr>
-
-        {"... your code here..."}
+        {!props.searchterm ? transaction : transaction.filter(t => t.category===props.searchterm)}
 
       </tbody>
     </table>
