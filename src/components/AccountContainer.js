@@ -1,32 +1,57 @@
-import React, { Component } from 'react'
-import TransactionsList from './TransactionsList'
-import Search from './Search'
-import {transactions} from '../transactionsData'
+import React, { Component } from "react";
+import TransactionsList from "./TransactionsList";
+import Search from "./Search";
+//import { transactions } from "../transactionsData";
 
 class AccountContainer extends Component {
+  state = { transactions: [], searchTerm: "", filteredTransactions: [] };
 
-  constructor() {
-    super()
+  getTransactionData = () => {
+    fetch("https://boiling-brook-94902.herokuapp.com/transactions")
+      .then(res => res.json())
+      .then(json =>
+        this.setState({ transactions: json, filteredTransactions: json })
+      );
+  };
 
-    // get a default state working with the data imported from TransactionsData
-    // use this to get the functionality working
-    // then replace the default transactions with a call to the API
-
+  componentDidMount() {
+    this.getTransactionData();
   }
 
-  handleChange(event) {
-    // your code here
-  }
+  handleChange = event => {
+    this.setState({
+      searchTerm: event.target.value
+    });
+    this.filterTransactions();
+  };
+
+  filterTransactions = () => {
+    let newTransactions = this.state.transactions.slice();
+    this.setState(prevState => {
+      return {
+        filteredTransactions: newTransactions.filter(t => {
+          return (
+            t.description
+              .toLowerCase()
+              .match(prevState.searchTerm.toLowerCase()) ||
+            t.category.toLowerCase().match(prevState.searchTerm.toLowerCase())
+          );
+        })
+      };
+    });
+  };
 
   render() {
-
     return (
       <div>
-        <Search searchTerm={"...add code here..."} handleChange={"...add code here..."} />
-        <TransactionsList transactions={"...add code here..."} searchTerm={"...add code here..."} />
+        <Search
+          searchTerm={this.state.searchTerm}
+          handleChange={this.handleChange}
+        />
+        <TransactionsList transactions={this.state.filteredTransactions} />
       </div>
-    )
+    );
   }
 }
 
-export default AccountContainer
+export default AccountContainer;
