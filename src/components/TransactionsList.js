@@ -1,6 +1,30 @@
 import React from 'react'
+import Transaction from './Transaction.js'
 
-const TransactionsList = () => {
+const TransactionsList = (props) => {
+
+  const remove = (array, element) => {
+      const index = array.indexOf(element);
+
+      if (index !== -1) {
+          array.splice(index, 1);
+      }
+  }
+
+  const transactionFilter = () => {
+    //Kinda works, but not in the right way, React is doing the duplication removal because of identical keys, and throwing errors
+
+    let des = props.transactions.filter(t => t.description.toLowerCase().match(props.searchTerm.toLowerCase()))
+
+    let cat = props.transactions.filter(t => t.category.toLowerCase().match(props.searchTerm.toLowerCase()))
+
+
+    return [...cat,...des]
+  }
+
+  const transactionMap = () => {
+    return transactionFilter().map(t => <Transaction key={t.id} transaction={t}/>)
+  }
 
   return (
     <table className="ui celled striped padded table">
@@ -28,7 +52,7 @@ const TransactionsList = () => {
           </th>
         </tr>
 
-        {"... your code here..."}
+        {transactionMap()}
 
       </tbody>
     </table>
