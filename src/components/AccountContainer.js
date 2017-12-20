@@ -23,6 +23,7 @@ class AccountContainer extends Component {
       searchTerm: event.target.value})
     )
   }
+  
 
   render() {
     return (
