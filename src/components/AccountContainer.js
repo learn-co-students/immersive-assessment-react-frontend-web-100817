@@ -6,11 +6,16 @@ import { transactions } from "../transactionsData";
 class AccountContainer extends Component {
   state = {
     transactions: this.props.transactions,
-    searchTerm: ""
+    searchTerm: "",
+    selectedTransaction: null
   };
 
   handleChange = event => {
     this.setState({ searchTerm: event.target.value });
+  };
+
+  handleClick = event => {
+    this.setState({ selectedTransaction: event.target.id });
   };
 
   render() {
@@ -21,6 +26,8 @@ class AccountContainer extends Component {
           handleChange={this.handleChange}
         />
         <TransactionsList
+          selectedTransaction={this.state.selectedTransaction}
+          handleClick={this.handleClick}
           transactions={this.props.transactions}
           searchTerm={this.state.searchTerm}
         />

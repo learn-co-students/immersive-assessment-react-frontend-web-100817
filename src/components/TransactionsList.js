@@ -8,7 +8,15 @@ const TransactionsList = props => {
       transaction.description.toLowerCase().includes(props.searchTerm) ||
       transaction.category.toLowerCase().includes(props.searchTerm)
     ) {
-      return <Transaction transaction={transaction} />;
+      return (
+        <Transaction
+          selectedTransaction={props.selectedTransaction}
+          id={transaction.id}
+          handleClick={props.handleClick}
+          key={transaction.id}
+          transaction={transaction}
+        />
+      );
     }
   });
   return (
