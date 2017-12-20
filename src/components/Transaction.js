@@ -1,14 +1,13 @@
 import React from 'react'
 
-const Transaction = () => {
-  return (
-    <tr>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-      <td>{"...your code here"}</td>
-    </tr>
-  )
+class Transaction extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.props.singleTransaction.description}
+        </div>
+    )
+  }
 }
 
 export default Transaction
