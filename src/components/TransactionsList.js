@@ -12,14 +12,9 @@ const TransactionsList = (props) => {
   }
 
   const transactionFilter = () => {
-    //Kinda works, but not in the right way, React is doing the duplication removal because of identical keys, and throwing errors
+    let fT = props.transactions.filter(t => ( t.description.toLowerCase().match(props.searchTerm.toLowerCase()) || t.category.toLowerCase().match(props.searchTerm.toLowerCase())))
 
-    let des = props.transactions.filter(t => t.description.toLowerCase().match(props.searchTerm.toLowerCase()))
-
-    let cat = props.transactions.filter(t => t.category.toLowerCase().match(props.searchTerm.toLowerCase()))
-
-
-    return [...cat,...des]
+    return fT
   }
 
   const transactionMap = () => {
