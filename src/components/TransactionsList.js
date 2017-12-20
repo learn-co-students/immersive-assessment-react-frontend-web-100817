@@ -1,38 +1,33 @@
 import React from 'react'
+import Transaction from './Transaction'
 
-const TransactionsList = () => {
+class TransactionsList extends React.Component {
 
-  return (
-    <table className="ui celled striped padded table">
-      <tbody>
-        <tr>
-          <th>
-            <h3 className="ui center aligned header">
-              Posted At
-            </h3>
-          </th>
-          <th>
-            <h3 className="ui center aligned header">
-              Description
-            </h3>
-          </th>
-          <th>
-            <h3 className="ui center aligned header">
-              Category
-            </h3>
-          </th>
-          <th>
-            <h3 className="ui center aligned header">
-              Amount
-            </h3>
-          </th>
-        </tr>
+  render(){
 
-        {"... your code here..."}
+    const filterSearch = (transactions, searchTerm) => {
+      if (!searchTerm){}
+      transactions.filter((transaction)=>{
+        return transaction.description === searchTerm;
+      })
+    } else {return transactions}
+    }
 
-      </tbody>
-    </table>
-  )
+    console.log(this.props.transactions)
+      const desiredTransactions = filterSearch(this.props.transactions, this.props.searchTerm)
+      const listTransactions = desiredTransactions.map(transaction=>(
+        <Transaction
+          singleTransaction = {transaction}
+        />
+      )
+    );
+
+    return (
+      <div>
+        {listTransactions}
+      </div>
+    )
+  }
 }
 
 export default TransactionsList
