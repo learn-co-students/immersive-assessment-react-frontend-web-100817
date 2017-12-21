@@ -1,6 +1,25 @@
 import React from 'react'
+import Transaction from './Transaction.js'
 
-const TransactionsList = () => {
+const TransactionsList = (props) => {
+
+  const remove = (array, element) => {
+      const index = array.indexOf(element);
+
+      if (index !== -1) {
+          array.splice(index, 1);
+      }
+  }
+
+  const transactionFilter = () => {
+    let fT = props.transactions.filter(t => ( t.description.toLowerCase().match(props.searchTerm.toLowerCase()) || t.category.toLowerCase().match(props.searchTerm.toLowerCase())))
+
+    return fT
+  }
+
+  const transactionMap = () => {
+    return transactionFilter().map(t => <Transaction key={t.id} transaction={t}/>)
+  }
 
   return (
     <table className="ui celled striped padded table">
@@ -28,7 +47,7 @@ const TransactionsList = () => {
           </th>
         </tr>
 
-        {"... your code here..."}
+        {transactionMap()}
 
       </tbody>
     </table>
